@@ -258,9 +258,3 @@ We performed several evaluation steps:
 *   The authors of the HL-CLIP paper for the foundational methodology.
 *   The organizers of the AI for Elephants Hackathon.
 *   [Any data sources or individuals who helped, if applicable]
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
