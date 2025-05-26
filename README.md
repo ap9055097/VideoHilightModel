@@ -132,7 +132,7 @@ We performed several evaluation steps:
 
 | Model                          | Optimal Threshold | Precision | Recall | F1-Score | Accuracy | TN | FP | FN | TP |
 | :----------------------------- | :---------------: | :-------: | :----: | :------: | :------: | :-: | :-: | :-: | :-: |
-| Zero-Shot CLIP                 |      23.2910      |  0.3191   | 1.0000 |  0.4839  |  0.3333  |  2  | 64 |  0  | 30 |
+| Zero-Shot CLIP                 |      0.2329       |  0.3191   | 1.0000 |  0.4839  |  0.3333  |  2  | 64 |  0  | 30 |
 | Fine-tuned HL-CLIP             |      0.5049       |  0.3913   | 0.9000 |  0.5455  |  0.5312  | 24  | 42 |  3  | 27 |
 | Pruned Fine-tuned HL-CLIP      |      0.4951       |  0.4590   | 0.9333 |  0.6154  |  0.6354  | 33  | 33 |  2  | 28 |
 
@@ -142,7 +142,7 @@ We performed several evaluation steps:
 
 *   **Fine-tuning Works:** The fine-tuned HL-CLIP model (F1: 0.5455) significantly outperformed the Zero-Shot CLIP approach (F1: 0.4839) in terms of F1-score and overall balance of precision/recall, demonstrating the value of domain-specific adaptation.
 *   **Pruning is Effective:** After pruning 20% of the weights from the fine-tuned model and re-training for a few epochs, the Pruned HL-CLIP model achieved the **highest F1-score (0.6154)**. This suggests that pruning not only reduced model complexity but also potentially acted as a regularizer, improving generalization.
-*   **Zero-Shot Challenges:** Zero-Shot CLIP, while powerful for general vision-language tasks, struggled to achieve high precision for this specific highlight detection task with generic prompts, tending to recall many frames as highlights (Recall: 1.0000) but with many false positives. The optimal threshold found (23.29) is also indicative of a very different score distribution compared to sigmoid outputs.
+*   **Zero-Shot Challenges:** Zero-Shot CLIP, while powerful for general vision-language tasks, struggled to achieve high precision for this specific highlight detection task with generic prompts, tending to recall many frames as highlights (Recall: 1.0000) but with many false positives. The optimal threshold found (0.2329) is also indicative of a very different score distribution compared to sigmoid outputs.
 *   **JIT Compilation:** The pruned model was successfully traced using `torch.jit.trace` for potential inference optimization, though its direct impact on metrics wasn't re-evaluated in this phase (it primarily affects inference speed/deployability).
 
 *(You can add plots of score distributions here if you have them from your `matplotlib` code).*
