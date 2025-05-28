@@ -137,7 +137,6 @@ We performed several evaluation steps:
 | Fine-tuned HL-CLIP             |      0.5049       |  0.3913   | 0.9000 |  0.5455  |  0.5312  |
 | Pruned Fine-tuned HL-CLIP      |      0.4951       |  0.4590   | 0.9333 |  0.6154  |  0.6354  |
 
-*(Note: TN/FP/FN/TP are from the validation run with the optimal threshold for each respective model before deployment optimizations. The FP16 TensorRT model aims for efficiency while preserving these metrics as closely as possible.)*
 
 **Observations:**
 
