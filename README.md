@@ -38,7 +38,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 *   **Model Card:** This `README.md` serves as the primary model card.
     *   **Model Structure & Methodology:**
         *   **Base Model:** OpenAI's CLIP (ViT-B/32 architecture). See: [Learning Transferable Visual Models From Natural Language Supervision (Radford et al., 2021)](https://arxiv.org/abs/2103.00020).
-        *   **Highlight Detection Adaptation:** We adopted principles for adapting CLIP to video highlight detection, inspired by works like [Unleash the Potential of CLIP for Video Highlight Detection (Han et al., 2023)](https://arxiv.org/abs/2404.01745). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores. Our specific implementation is detailed in the provided notebook and referred to as `HLCLIPModel`.
+        *   **Highlight Detection Adaptation:** We adopted principles for adapting CLIP to video highlight detection, inspired by works like [Unleash the Potential of CLIP for Video Highlight Detection (Han et al., 2024)](https://arxiv.org/abs/2404.01745). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores. Our specific implementation is detailed in the provided notebook and referred to as `HLCLIPModel`.
         *   **Intended Use Case:** To automatically identify and flag semantically significant and potentially "viral-worthy" segments in videos featuring elephants. This assists in quickly locating footage that can be used for public engagement, storytelling, and raising awareness for conservation. The model outputs per-frame highlight probabilities, which are post-processed to define highlight segments.
 
 ### 3. 🎬 Video Demonstration
@@ -53,7 +53,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
     `[LINK_TO_YOUR_SCIENTIFIC_REPORT_PDF_OR_DOC]`
     *   **Key References:**
         *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
-        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2023). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
+        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2024). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
     *(This report would expand significantly on the details presented in this README and include further analysis as per standard scientific reporting.)*
 
 ### 5. 🌍 AI Model Footprint on Environment
@@ -223,7 +223,7 @@ Here's a general guide:
 ## 🙏 Acknowledgements
 
 *   OpenAI for the pre-trained CLIP model.
-*   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2023).
+*   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2024).
 *   The organizers and sponsors of the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
 *   [Any data sources or individuals who helped, if applicable]
 
