@@ -50,7 +50,6 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 ### 4. 📜 Scientific Report
 
 *   A document covering the project’s motivation (finding engaging "viral" content for elephant conservation awareness), detailed methodology, dataset description, training procedures, evaluation results (including comparisons), and discussion can be found here:
-    `[LINK_TO_YOUR_SCIENTIFIC_REPORT_PDF_OR_DOC]`
     *   **Key References:**
         *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
         *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2024). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
@@ -225,6 +224,5 @@ Here's a general guide:
 *   OpenAI for the pre-trained CLIP model.
 *   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2024).
 *   The organizers and sponsors of the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
-*   [Any data sources or individuals who helped, if applicable]
 
 ---
