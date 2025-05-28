@@ -26,6 +26,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 ### 1. 🌐 All Projects Must Be Open-Source
 
 *   **Repository:** This entire project, including all code, model weights (for the fine-tuned, pruned, and FP16 TensorRT versions), and documentation, is publicly available at: [https://github.com/ap9055097/VideoHilightModel](https://github.com/ap9055097/VideoHilightModel)
+*   **License:** This project is licensed under the MIT License (see `LICENSE` file in the repository).
 
 ### 2. 🧠 AI Model/System Prototypes
 
@@ -37,7 +38,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 *   **Model Card:** This `README.md` serves as the primary model card.
     *   **Model Structure & Methodology:**
         *   **Base Model:** OpenAI's CLIP (ViT-B/32 architecture). See: [Learning Transferable Visual Models From Natural Language Supervision (Radford et al., 2021)](https://arxiv.org/abs/2103.00020).
-        *   **Highlight Detection Adaptation:** We adopted principles for adapting CLIP to video highlight detection, inspired by works like [Unleash the Potential of CLIP for Video Highlight Detection (Han et al., 2024)](https://arxiv.org/abs/2404.01745). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores. Our specific implementation is detailed in the provided notebook and referred to as `HLCLIPModel`.
+        *   **Highlight Detection Adaptation:** We adopted principles for adapting CLIP to video highlight detection, inspired by works like [Unleash the Potential of CLIP for Video Highlight Detection (Han et al., 2023)](https://arxiv.org/abs/2306.00749). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores. Our specific implementation is detailed in the provided notebook and referred to as `HLCLIPModel`.
         *   **Intended Use Case:** To automatically identify and flag semantically significant and potentially "viral-worthy" segments in videos featuring elephants. This assists in quickly locating footage that can be used for public engagement, storytelling, and raising awareness for conservation. The model outputs per-frame highlight probabilities, which are post-processed to define highlight segments.
 
 ### 3. 🎬 Video Demonstration
@@ -48,10 +49,10 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 
 ### 4. 📜 Scientific Report
 
-*   A document covering the project’s motivation (finding engaging "viral" content for elephant conservation awareness), detailed methodology, dataset description, training procedures, evaluation results (including comparisons), and discussion can be found here:
+*   A document covering the project’s motivation (finding engaging "viral" content for elephant conservation awareness), detailed methodology, dataset description, training procedures, evaluation results (including comparisons), and discussion can be found here: `[LINK_TO_YOUR_SCIENTIFIC_REPORT_PDF_OR_DOC]`
     *   **Key References:**
         *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
-        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2024). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
+        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2023). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
     *(This report would expand significantly on the details presented in this README and include further analysis as per standard scientific reporting.)*
 
 ### 5. 🌍 AI Model Footprint on Environment
@@ -154,6 +155,50 @@ We performed several evaluation steps:
 
 ---
 
+## 🔬 Deeper Dive: From Video to Highlight Prediction
+
+This section details how our system processes an input video to predict and label frames or segments as a "highlight" (class 1 for viral potential) versus "non-highlight" (class 0).
+
+1.  **Video Input & Frame Sampling:**
+    *   The system begins with your video file (e.g., an MP4 of elephants).
+    *   To work efficiently, it doesn't analyze every single frame. Instead, it **samples frames** at regular intervals using a `stride` (e.g., every 5th frame), as defined in the `predict_highlights` function in our notebook.
+
+2.  **Frame Preprocessing:**
+    *   Each sampled frame is converted and transformed using the standard **CLIP `preprocess` function**. This involves:
+        *   Resizing to 224x224 pixels.
+        *   Normalizing pixel values.
+        *   Converting the frame into a PyTorch tensor (a numerical format suitable for the neural network).
+
+3.  **Batching for Efficiency:**
+    *   The preprocessed frame tensors are grouped into small "clips" or chunks (e.g., 100 frames per chunk, controlled by `frames_per_clip`).
+    *   Each chunk forms a batch that is fed to the model. This is for managing memory and computational load.
+
+4.  **Visual Feature Extraction (Our `HLCLIPModel`):**
+    *   The batch of frame tensors enters our `HLCLIPModel`.
+    *   Frames are passed through the **CLIP visual encoder** (the ViT-B/32 transformer). The last two layers of this encoder were fine-tuned on our elephant dataset, allowing it to learn visual features specifically indicative of "viral-worthy" elephant moments.
+    *   The encoder outputs a compact **feature vector** for each frame, summarizing its visual content.
+
+5.  **Highlight Scoring (The Custom Head):**
+    *   These feature vectors are then processed by our custom-added classification head:
+        1.  A Linear layer transforms the features.
+        2.  A ReLU activation introduces non-linearity.
+        3.  Another Linear layer maps features to a single score.
+        4.  A **Sigmoid activation function** converts this score into a probability (a value between 0 and 1) for each frame. This probability represents the model's confidence that the frame is part of a highlight.
+
+6.  **Classification: Highlight (1) or Not (0):**
+    *   A **threshold** (e.g., 0.4951 for our pruned model, determined during evaluation to maximize F1-score) is applied to the probability score of each frame.
+        *   If `score >= threshold`, the frame is classified as a **highlight (Class 1)**.
+        *   If `score < threshold`, it's classified as **not a highlight (Class 0)**.
+
+7.  **Forming Highlight Segments:**
+    *   The system then looks for consecutive sequences of frames classified as Class 1.
+    *   The start and end times of these sequences (based on their original frame number and the video's FPS) are recorded.
+    *   The final output is a list of `(start_time_seconds, end_time_seconds)` tuples, pinpointing the predicted "viral gold" segments in your video.
+
+This process allows the model to efficiently scan through videos, identify visually engaging moments based on learned patterns, and present them as distinct highlight segments.
+
+---
+
 ## 🚀 How to Use This Model
 
 The primary way to use this model, from data loading and preprocessing to training, evaluation, and prediction with the optimized models, is by following the **`[HL_CLIP]_elephant_video_training_v0_0_3_.ipynb`** notebook provided in this repository: [https://github.com/ap9055097/VideoHilightModel](https://github.com/ap9055097/VideoHilightModel).
@@ -220,7 +265,7 @@ Here's a general guide:
 ## 🙏 Acknowledgements
 
 *   OpenAI for the pre-trained CLIP model.
-*   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2024).
+*   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2023).
 *   The organizers and sponsors of the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
 
 ---
