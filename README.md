@@ -19,9 +19,9 @@ We've journeyed through data preparation, model training, rigorous evaluation, a
 
 ---
 
-## 🏆 Hackathon Submission Checklist & Details
+## 🏆 Moodeng: AI for Social Good - Elephant Challenge Submission Checklist & Details
 
-This project fulfills the requirements for the AI for Elephants Hackathon:
+This project fulfills the requirements for the AI for [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/):
 
 ### 1. 🌐 All Projects Must Be Open-Source
 
