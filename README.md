@@ -47,13 +47,13 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
     `[LINK_TO_YOUR_YOUTUBE/VIMEO_VIDEO_DEMO]`
     *(The video should briefly cover the problem of finding engaging footage, how our CLIP-based model helps, show some example predictions of "viral-worthy" moments, and discuss how this can boost conservation awareness.)*
 
-### 4. 📜 Scientific Report
+### 4. 📜 Scientific Report Details
 
-*   A document covering the project’s motivation (finding engaging "viral" content for elephant conservation awareness), detailed methodology, dataset description, training procedures, evaluation results (including comparisons), and discussion can be found here: `[LINK_TO_YOUR_SCIENTIFIC_REPORT_PDF_OR_DOC]`
-    *   **Key References:**
-        *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
-        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2023). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
-    *(This report would expand significantly on the details presented in this README and include further analysis as per standard scientific reporting.)*
+*   The project’s motivation (finding engaging "viral" content for elephant conservation awareness), detailed methodology, dataset description, training procedures, evaluation results (including comparisons), and discussion are covered comprehensively within this README and the accompanying Jupyter Notebook: `[HL_CLIP]_elephant_video_training_v0_0_3_.ipynb`.
+*   **Key References for Methodological Inspiration:**
+    *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
+    *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2023). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
+*(This README and the notebook serve as the primary scientific documentation for this project.)*
 
 ### 5. 🌍 AI Model Footprint on Environment
 
