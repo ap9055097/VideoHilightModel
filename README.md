@@ -26,7 +26,6 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 ### 1. 🌐 All Projects Must Be Open-Source
 
 *   **Repository:** This entire project, including all code, model weights (for the fine-tuned, pruned, and FP16 TensorRT versions), and documentation, is publicly available at: [https://github.com/ap9055097/VideoHilightModel](https://github.com/ap9055097/VideoHilightModel)
-*   **License:** This project is licensed under the MIT License (see `LICENSE` file).
 
 ### 2. 🧠 AI Model/System Prototypes
 
