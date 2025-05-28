@@ -8,7 +8,7 @@ Elephants are magnificent, but how do we get the world to pay more attention to 
 
 ## Our Solution: Your AI Content Scout & Highlight Reel Creator 💡
 
-This project introduces an AI-powered system to automatically detect and highlight potentially viral segments in elephant video footage. We leverage the cutting-edge **HL-CLIP (Highlight-CLIP)** model, fine-tuning a powerful pre-trained vision-language model to understand and identify engaging and significant events. Think of it as an "AI Content Scout" that:
+This project introduces an AI-powered system to automatically detect and highlight potentially viral segments in elephant video footage. We leverage a **CLIP-based highlight detection** model, fine-tuning a powerful pre-trained vision-language model to understand and identify engaging and significant events. Think of it as an "AI Content Scout" that:
 
 *   **Pinpoints Viral Potential:** Identifies unique behaviors, charming interactions, dramatic scenes, or simply beautiful shots that are likely to captivate an online audience.
 *   **Accelerates Content Creation:** Drastically reduces the time needed to find compelling footage for awareness campaigns, social media, and documentaries.
@@ -25,7 +25,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 
 ### 1. 🌐 All Projects Must Be Open-Source
 
-*   **Repository:** This entire project, including all code, model weights (for the fine-tuned, pruned, and FP16 TensorRT versions), and documentation, is publicly available at: `[LINK_TO_YOUR_GITHUB_REPO]`
+*   **Repository:** This entire project, including all code, model weights (for the fine-tuned, pruned, and FP16 TensorRT versions), and documentation, is publicly available at: [https://github.com/ap9055097/VideoHilightModel](https://github.com/ap9055097/VideoHilightModel)
 *   **License:** This project is licensed under the MIT License (see `LICENSE` file).
 
 ### 2. 🧠 AI Model/System Prototypes
@@ -38,14 +38,14 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
 *   **Model Card:** This `README.md` serves as the primary model card.
     *   **Model Structure & Methodology:**
         *   **Base Model:** OpenAI's CLIP (ViT-B/32 architecture). See: [Learning Transferable Visual Models From Natural Language Supervision (Radford et al., 2021)](https://arxiv.org/abs/2103.00020).
-        *   **HL-CLIP Adaptation:** We adopted the principles of HL-CLIP. See: [HL-CLIP: Enabling Highlight Detection in Long Videos using Language, Vision, and Speech (Shah et al., 2024)](https://arxiv.org/abs/2404.01745). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores.
+        *   **Highlight Detection Adaptation:** We adopted principles for adapting CLIP to video highlight detection, inspired by works like "Unleash the Potential of CLIP for Video Highlight Detection" (Han et al., 2023, arXiv:2306.00749). This involved fine-tuning the CLIP visual encoder. Specifically, the last 2 transformer layers of the visual encoder were unfrozen and trained, while the rest of the pre-trained weights were kept frozen. A custom classification head (comprising a Linear layer, ReLU activation, and an output Linear layer with Sigmoid) was added to predict frame-level highlight scores. Our specific implementation is detailed in the provided notebook and referred to as `HLCLIPModel`.
         *   **Intended Use Case:** To automatically identify and flag semantically significant and potentially "viral-worthy" segments in videos featuring elephants. This assists in quickly locating footage that can be used for public engagement, storytelling, and raising awareness for conservation. The model outputs per-frame highlight probabilities, which are post-processed to define highlight segments.
 
 ### 3. 🎬 Video Demonstration
 
 *   A short, public-friendly video explaining our solution, its goals (focused on viral content for awareness), and potential impact on elephant conservation is available here:
     `[LINK_TO_YOUR_YOUTUBE/VIMEO_VIDEO_DEMO]`
-    *(The video should briefly cover the problem of finding engaging footage, how HL-CLIP helps, show some example predictions of "viral-worthy" moments, and discuss how this can boost conservation awareness.)*
+    *(The video should briefly cover the problem of finding engaging footage, how our CLIP-based model helps, show some example predictions of "viral-worthy" moments, and discuss how this can boost conservation awareness.)*
 
 ### 4. 📜 Scientific Report
 
@@ -53,7 +53,7 @@ This project fulfills the requirements for the AI for Elephants Hackathon:
     `[LINK_TO_YOUR_SCIENTIFIC_REPORT_PDF_OR_DOC]`
     *   **Key References:**
         *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
-        *   Shah, K., Ramanishka, V., Feris, R., & Karlinsky, L. (2024). HL-CLIP: Enabling Highlight Detection in Long Videos using Language, Vision, and Speech. *arXiv preprint arXiv:2404.01745*.
+        *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2023). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
     *(This report would expand significantly on the details presented in this README and include further analysis as per standard scientific reporting.)*
 
 ### 5. 🌍 AI Model Footprint on Environment
@@ -65,7 +65,7 @@ We are committed to responsible AI development and have taken several steps to c
     *   **Impact:** This is the single most significant factor in reducing our training carbon footprint.
 
 *   **2. Model Pruning:**
-    *   **Effort:** We implemented L1 Unstructured global pruning on the fine-tuned HL-CLIP model, targeting a 20% reduction in weights across linear and convolutional layers, followed by a short re-fine-tuning phase.
+    *   **Effort:** We implemented L1 Unstructured global pruning on the fine-tuned model, targeting a 20% reduction in weights across linear and convolutional layers, followed by a short re-fine-tuning phase.
     *   **Impact:** Pruning reduces the model's parameter count, which can lead to:
         *   Smaller model size on disk (less storage energy).
         *   Potentially faster inference (fewer operations), thus lower inference energy consumption per video. Our results show that pruning maintained, and even slightly improved, the F1-score.
@@ -99,7 +99,7 @@ We are committed to responsible AI development and have taken several steps to c
 
 ### 1. Data Preparation & Preprocessing
 
-*   **Dataset Source:** Videos were sourced from Google Drive (`/content/drive/MyDrive/elephant_clip/`). We used separate `train_augmented` and `val` directories. You can access the dataset used for this project here: `[LINK_TO_YOUR_DATASET_GOOGLE_DRIVE]`
+*   **Dataset Source:** Videos were sourced from Google Drive. The primary dataset used for this project can be accessed here: [Elephant Highlight Video Dataset](https://drive.google.com/drive/folders/1M9yBS0Q_0iLKzOIzYcXHODTat1e58u9d?usp=drive_link). We used separate `train_augmented` and `val` directories within a structure like `/content/drive/MyDrive/elephant_clip/`.
 *   **Annotation Strategy:**
     *   A simple yet effective annotation strategy was used: videos placed in a subdirectory containing `/bad/` in its path (e.g., `val/bad/video.mp4`) were treated as having no specific highlight segments (empty annotation list `[]` for their `video_id`). These represent non-viral or standard footage.
     *   Videos in other paths (e.g., `val/good/video.mp4` or top-level in `train_augmented`) for which no explicit annotation was provided in `annotations_data` were considered as **entirely highlight footage**. These represent potentially viral or highly engaging content.
@@ -107,10 +107,10 @@ We are committed to responsible AI development and have taken several steps to c
 *   **Frame Extraction:** Videos were processed using OpenCV (`cv2.VideoCapture`). Frames were extracted at a specified `stride`.
 *   **Preprocessing for CLIP:** Each extracted frame (as a PIL Image) was passed through the standard `preprocess` function provided by OpenAI's CLIP model, which includes resizing to 224x224, normalization, and conversion to a PyTorch tensor.
 
-### 2. Model Architecture: HL-CLIP
+### 2. Model Architecture: HL-CLIP Style
 
 *   **Base:** We started with the ViT-B/32 (Vision Transformer) visual encoder from OpenAI's CLIP model.
-*   **Fine-tuning Strategy (HL-CLIP principle):**
+*   **Fine-tuning Strategy:**
     *   The **last 2 transformer `resblocks`** of the visual encoder were unfrozen.
     *   A **custom classification head** was added: `Linear(visual_output_dim, 512) -> ReLU -> Linear(512, 1) -> Sigmoid`.
 
@@ -132,18 +132,18 @@ We performed several evaluation steps:
 
 **Key Results Summary (metrics based on the model *before* JIT/TensorRT compilation for speed/size optimization):**
 
-| Model                          | Optimal Threshold | Precision | Recall | F1-Score | Accuracy | TN | FP | FN | TP |
-| :----------------------------- | :---------------: | :-------: | :----: | :------: | :------: | :-: | :-: | :-: | :-: |
-| Zero-Shot CLIP                 |      0.2329       |  0.3191   | 1.0000 |  0.4839  |  0.3333  |  2  | 64 |  0  | 30 |
-| Fine-tuned HL-CLIP             |      0.5049       |  0.3913   | 0.9000 |  0.5455  |  0.5312  | 24  | 42 |  3  | 27 |
-| Pruned Fine-tuned HL-CLIP      |      0.4951       |  0.4590   | 0.9333 |  0.6154  |  0.6354  | 33  | 33 |  2  | 28 |
+| Model                          | Optimal Threshold | Precision | Recall | F1-Score | Accuracy |
+| :----------------------------- | :---------------: | :-------: | :----: | :------: | :------: |
+| Zero-Shot CLIP                 |      0.2329       |  0.3191   | 1.0000 |  0.4839  |  0.3333  |
+| Fine-tuned HL-CLIP             |      0.5049       |  0.3913   | 0.9000 |  0.5455  |  0.5312  |
+| Pruned Fine-tuned HL-CLIP      |      0.4951       |  0.4590   | 0.9333 |  0.6154  |  0.6354  |
 
 *(Note: TN/FP/FN/TP are from the validation run with the optimal threshold for each respective model before deployment optimizations. The FP16 TensorRT model aims for efficiency while preserving these metrics as closely as possible.)*
 
 **Observations:**
 
-*   **Fine-tuning Works:** The fine-tuned HL-CLIP model (F1: 0.5455) significantly outperformed Zero-Shot CLIP.
-*   **Pruning is Effective:** The Pruned HL-CLIP model achieved the **highest F1-score (0.6154)**.
+*   **Fine-tuning Works:** The fine-tuned model (F1: 0.5455) significantly outperformed Zero-Shot CLIP.
+*   **Pruning is Effective:** The Pruned model achieved the **highest F1-score (0.6154)**.
 *   **Zero-Shot Challenges:** Zero-Shot CLIP struggled with precision for this specific "viral highlight" task.
 *   **JIT & TensorRT FP16:** These steps optimize the pruned model for efficient deployment, as shown in the notebook.
 
@@ -159,51 +159,53 @@ We performed several evaluation steps:
 
 ## 🚀 How to Use This Model
 
-The primary way to use this model, from data loading and preprocessing to training, evaluation, and prediction with the optimized models, is by following the **`[HL_CLIP]_elephant_video_training_v0_0_3_.ipynb`** notebook provided in this repository.
+The primary way to use this model, from data loading and preprocessing to training, evaluation, and prediction with the optimized models, is by following the **`[HL_CLIP]_elephant_video_training_v0_0_3_.ipynb`** notebook provided in this repository: [https://github.com/ap9055097/VideoHilightModel](https://github.com/ap9055097/VideoHilightModel).
 
 Here's a general guide:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [LINK_TO_YOUR_GITHUB_REPO]
-    cd [REPO_NAME]
+    git clone https://github.com/ap9055097/VideoHilightModel.git
+    cd VideoHilightModel
     ```
 
 2.  **Set up Your Environment:**
     *   It's highly recommended to use Google Colab with a GPU runtime (like the T4 used for development) to run the notebook. This ensures most dependencies are pre-configured or easily installable via `!pip` commands within the notebook.
-    *   If running locally, create a virtual environment and install all necessary packages. Key packages include `torch`, `torchvision`, `torchaudio`, `ftfy`, `regex`, `tqdm`, `clip @ git+https://github.com/openai/CLIP.git`, `opencv-python`, `scikit-learn`, `numpy`, `matplotlib`, and `torch-tensorrt==2.2.0`. Ensure your CUDA and PyTorch versions are compatible with Torch-TensorRT. The notebook includes installation cells for these.
+    *   If running locally, create a virtual environment and install all necessary packages. Key packages include `torch`, `torchvision`, `torchaudio`, `ftfy`, `regex`, `tqdm`, `opencv-python`, `scikit-learn`, `numpy`, `matplotlib`, and `torch-tensorrt==2.2.0`. You will also need to install CLIP directly from GitHub: `pip install git+https://github.com/openai/CLIP.git`. Ensure your CUDA and PyTorch versions are compatible with Torch-TensorRT. The notebook includes installation cells for these.
 
 3.  **Prepare Data & Model Weights:**
     *   **Dataset:**
-        *   Download the dataset from `[LINK_TO_YOUR_DATASET_GOOGLE_DRIVE]`.
+        *   Download the dataset from [Elephant Highlight Video Dataset](https://drive.google.com/drive/folders/1M9yBS0Q_0iLKzOIzYcXHODTat1e58u9d?usp=drive_link).
         *   Mount your Google Drive in Colab (`from google.colab import drive; drive.mount('/content/drive')`).
         *   Update the paths in the notebook (e.g., `directory_to_search = "/content/drive/MyDrive/elephant_clip/train_augmented"`) to point to your dataset location if it differs.
     *   **Model Weights:**
-        *   The notebook saves model weights like `best_hlclip_model.pth`, `best_prune_hlclip_model.pth`, and `trt_hlclip_fp16.ts` during its execution.
-        *   If you are skipping training and want to use pre-trained weights provided in this repository, download them (e.g., from a `models/` folder or a release) and ensure the paths in the prediction/evaluation sections of the notebook point to these downloaded files.
+        *   The notebook saves model weights like `best_hlclip_model.pth`, `best_prune_hlclip_model.pth`, and `trt_hlclip_fp16.ts` during its execution. These will be created in your Colab environment's working directory.
+        *   If you are skipping training and want to use pre-trained weights provided in this repository (if available as releases or in a `models/` folder), download them and ensure the paths in the prediction/evaluation sections of the notebook point to these downloaded files.
 
 4.  **Run the Notebook:**
     *   Open `[HL_CLIP]_elephant_video_training_v0_0_3_.ipynb` in Google Colab or your local Jupyter environment.
-    *   Execute the cells sequentially.
+    *   Execute the cells sequentially by following the instructions and comments within the notebook.
     *   **Data Loading & Preprocessing:** Cells under "Load Dataset List" and "Prepare Dataset" handle this.
-    *   **Training:** Cells under "Training" will fine-tune the HL-CLIP model.
+    *   **Training:** Cells under "Training" will fine-tune the model.
     *   **Evaluation:** Cells under "Metrics", "Zero shot model", "Zero-shot VS Fine-Tuning", and "Find Best Threshold" perform various evaluations.
     *   **Optimization:** Cells under "Pruning", "PyTorch JIT Compilation (TorchScript)", and "Quantization" (which leads to the FP16 TensorRT model) optimize the model.
     *   **Prediction (Inference):**
-        *   The section "**Predict**" in the notebook demonstrates how to use the `predict_highlights` function with a trained model (including the final `loaded_trt_model` which is the FP16 TensorRT version).
-        *   You can modify the `val_video_paths[...]` in these cells to point to your own videos for analysis. Ensure the chosen model (e.g., `model`, `fine_tuned_model`, `prune_fine_tuned_model`, or `loaded_trt_model`) and its corresponding optimal threshold are used in the `predict_highlights` function.
+        *   The section "**Predict**" in the notebook demonstrates how to use the `predict_highlights` function.
+        *   This section shows loading the `best_hlclip_model.pth` and then later, in the "PyTorch JIT Compilation (TorchScript)" and "Quantization" sections, it demonstrates running predictions with the `traced_model` and `loaded_trt_model` (the FP16 TensorRT version).
+        *   To predict on your own videos, modify the `val_video_paths[...]` in these prediction cells or provide a direct path to your video file. Ensure the chosen model (e.g., `model`, `prune_fine_tuned_model`, or `loaded_trt_model`) and its corresponding optimal threshold (found during evaluation) are used in the `predict_highlights` function.
 
-        Example snippet from the "Predict" section for using the FP16 TensorRT model:
+        Example of how prediction is called in the notebook (using the FP16 TensorRT model):
         ```python
-        # Assuming 'loaded_trt_model' is your loaded FP16 TensorRT model
-        # and 'preprocess' is the CLIP preprocessing function, 'device' is set.
-        # 'val_video_paths' is an example video.
-        # The optimal threshold for the pruned model was around 0.4951.
-        # You might need to re-evaluate for the TensorRT model or use a similar one.
+        # In the notebook, 'loaded_trt_model' is the loaded FP16 TensorRT model.
+        # 'preprocess' is the CLIP preprocessing function.
+        # 'device' is set (e.g., "cuda").
+        # 'val_video_paths' is an example video path from the validation set.
+        # The optimal threshold for the pruned model was ~0.4951, used as an example here.
         
         highlights = predict_highlights(val_video_paths, loaded_trt_model, preprocess, device, threshold=0.4951) 
         print(f"Detected highlights in {val_video_paths}: {highlights}")
         ```
+        Refer to the notebook for the complete context and function definitions.
 
 ---
 
@@ -221,7 +223,7 @@ Here's a general guide:
 ## 🙏 Acknowledgements
 
 *   OpenAI for the pre-trained CLIP model.
-*   The authors of the HL-CLIP paper for their foundational work.
+*   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2023).
 *   The organizers and sponsors of the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
 *   [Any data sources or individuals who helped, if applicable]
 
