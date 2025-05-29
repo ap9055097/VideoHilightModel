@@ -15,13 +15,13 @@ This project introduces an AI-powered system to automatically detect and highlig
 *   **Boosts Engagement:** Helps create a steady stream of engaging content to keep elephant conservation in the public eye and foster a global community of supporters.
 *   **Amplifies Conservation Stories:** Enables conservationists to more easily share the narratives of the elephants they work to protect, making the cause more relatable and urgent.
 
-We've journeyed through data preparation, model training, rigorous evaluation, and advanced optimization techniques (including pruning and FP16 compilation with TensorRT) to create a practical, effective, and environmentally conscious AI solution. This project is submitted to the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
+We've journeyed through data preparation, model training, rigorous evaluation, and advanced optimization techniques (including pruning and FP16 compilation with TensorRT) to create a practical, effective, and environmentally conscious AI solution. This project is submitted to the [Moodeng AI Challenge](https://moodeng.media.mit.edu/).
 
 ---
 
-## 🏆 Moodeng: AI for Social Good - Elephant Challenge Submission Checklist & Details
+## 🏆 Moodeng AI Challenge Submission Checklist & Details
 
-This project fulfills the requirements for [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/):
+This project fulfills the requirements for [Moodeng AI Challenge](https://moodeng.media.mit.edu/):
 
 ### 1. 🌐 All Projects Must Be Open-Source
 
@@ -265,6 +265,6 @@ Here's a general guide:
 
 *   OpenAI for the pre-trained CLIP model.
 *   The authors of research papers that explore adapting CLIP for video tasks, such as Han et al. (2024).
-*   The organizers and sponsors of the [Moodeng: AI for Social Good - Elephant Challenge](https://moodeng.media.mit.edu/).
+*   The organizers and sponsors of the [Moodeng AI Challenge](https://moodeng.media.mit.edu/).
 
 ---
