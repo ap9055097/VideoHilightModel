@@ -43,8 +43,7 @@ This project fulfills the requirements for [Moodeng AI Challenge](https://mooden
 ### 3. 🎬 Video Demonstration
 
 *   A short, public-friendly video explaining our solution, its goals (focused on viral content for awareness), and potential impact on elephant conservation is available here:
-    `[LINK_TO_YOUR_YOUTUBE/VIMEO_VIDEO_DEMO]`
-    *(The video should briefly cover the problem of finding engaging footage, how our CLIP-based model helps, show some example predictions of "viral-worthy" moments, and discuss how this can boost conservation awareness.)*
+    [https://www.youtube.com/watch?v=oVGp8Ub1aKs](https://www.youtube.com/watch?v=oVGp8Ub1aKs)
 
 ### 4. 📜 Scientific Report Details
 
