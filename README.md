@@ -51,7 +51,6 @@ This project fulfills the requirements for [Moodeng AI Challenge](https://mooden
 *   **Key References for Methodological Inspiration:**
     *   Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., ... & Sutskever, I. (2021). Learning Transferable Visual Models From Natural Language Supervision. *arXiv preprint arXiv:2103.00020*.
     *   Han, D., Seo, S., Park, E., Nam, S. U., & Kwak, N. (2024). Unleash the Potential of CLIP for Video Highlight Detection. *arXiv preprint arXiv:2306.00749*.
-*(This README and the notebook serve as the primary scientific documentation for this project.)*
 
 ### 5. 🌍 AI Model Footprint on Environment
 
